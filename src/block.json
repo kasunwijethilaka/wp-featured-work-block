@@ -1,0 +1,32 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "featured/work",
+	"version": "1.0.0",
+	"title": "Featured Work",
+	"category": "widgets",
+	"icon": "portfolio",
+	"description": "An accessible, filterable grid of case studies, rendered dynamically from the Case Study post type.",
+	"keywords": [ "case study", "portfolio", "work", "grid", "projects" ],
+	"textdomain": "featured-work",
+	"attributes": {
+		"postsToShow": { "type": "number", "default": 6 },
+		"columns": { "type": "number", "default": 3 },
+		"projectType": { "type": "string", "default": "" },
+		"order": { "type": "string", "default": "desc" },
+		"orderBy": { "type": "string", "default": "date" },
+		"showExcerpt": { "type": "boolean", "default": true },
+		"showFilter": { "type": "boolean", "default": true }
+	},
+	"supports": {
+		"html": false,
+		"align": [ "wide", "full" ],
+		"color": { "background": true, "text": true, "link": true },
+		"spacing": { "margin": true, "padding": true },
+		"typography": { "fontSize": true, "lineHeight": true }
+	},
+	"editorScript": "file:./index.js",
+	"editorStyle": "file:./index.css",
+	"style": "file:./style-index.css",
+	"render": "file:./render.php"
+}

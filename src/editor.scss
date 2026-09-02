@@ -1,0 +1,12 @@
+/**
+ * Editor-only styles for the Featured Work block.
+ *
+ * Kept intentionally minimal — the full front-end design lands in style.scss
+ * (Phase 4). This is imported by edit.js and compiles to build/index.css,
+ * which block.json references via "editorStyle".
+ */
+.wp-block-featured-work {
+	// The ServerSideRender preview is briefly empty while it loads; a minimum
+	// height stops the block from collapsing and jumping in the editor.
+	min-height: 2rem;
+}
