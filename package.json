@@ -1,0 +1,23 @@
+{
+	"name": "featured-work",
+	"version": "1.0.0",
+	"description": "A dynamic Gutenberg block that renders an accessible, filterable grid of case studies.",
+	"author": "Kasun Wijethilaka",
+	"license": "GPL-2.0-or-later",
+	"private": true,
+	"main": "build/index.js",
+	"scripts": {
+		"build": "wp-scripts build",
+		"start": "wp-scripts start",
+		"format": "wp-scripts format",
+		"lint:js": "wp-scripts lint-js",
+		"lint:css": "wp-scripts lint-style",
+		"env": "wp-env",
+		"env:start": "wp-env start",
+		"env:stop": "wp-env stop"
+	},
+	"devDependencies": {
+		"@wordpress/env": "^10.10.0",
+		"@wordpress/scripts": "^30.7.0"
+	}
+}
