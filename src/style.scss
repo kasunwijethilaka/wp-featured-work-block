@@ -1,15 +1,244 @@
 /**
  * Front-end + shared styles for the Featured Work block.
  *
- * Placeholder for Phase 2 so the build resolves the import in index.js.
- * The full design (CSS grid, tokens, container queries, focus states,
- * reduced-motion) is built out in Phase 4. Compiles to build/style-index.css,
- * referenced by block.json's "style" key.
+ * Also loaded in the editor (WordPress enqueues a block's `style` in both
+ * contexts), so the editor preview matches the front end automatically.
+ *
+ * Design: bordered-minimal cards, 16:9 covers, indigo accent. Layout is driven
+ * by CSS Grid + container queries so it responds to the block's own width.
  */
+
 .wp-block-featured-work {
-	ul {
-		list-style: none;
+	// --- Design tokens (scoped to the block) ---
+	--fw-gap: 1.5rem;
+	--fw-radius: 12px;
+
+	--fw-accent: #4f46e5;
+	--fw-accent-strong: #4338ca;
+	--fw-accent-soft: #eef2ff;
+	--fw-on-accent: #fff;
+
+	--fw-surface: #fff;
+	--fw-surface-muted: #f5f5f4;
+	--fw-border: #e7e5e4;
+	--fw-border-strong: #d6d3d1;
+	--fw-text: #1c1917;
+	--fw-text-muted: #57534e;
+	--fw-text-subtle: #78716c;
+
+	--fw-cover-ratio: 16 / 9;
+	--fw-transition: 160ms ease;
+
+	// Enable container queries: the grid responds to THIS block's width,
+	// not just the viewport.
+	container-type: inline-size;
+
+	// --- Filter toolbar ---
+	.fw-filter {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.6rem;
+		margin: 0 0 0.75rem;
+	}
+
+	.fw-filter__btn {
+		font: inherit;
+		font-size: 0.95rem;
+		line-height: 1;
+		padding: 0.65rem 1.35rem;
+		border: 1px solid var(--fw-border-strong);
+		border-radius: 999px;
+		background: var(--fw-surface);
+		color: var(--fw-text-muted);
+		cursor: pointer;
+		transition: color var(--fw-transition), background var(--fw-transition), border-color var(--fw-transition);
+
+		&:hover {
+			color: var(--fw-text);
+			border-color: var(--fw-text-subtle);
+		}
+
+		&[aria-pressed="true"] {
+			background: var(--fw-accent);
+			border-color: var(--fw-accent);
+			color: var(--fw-on-accent);
+		}
+
+		&:focus-visible {
+			outline: 3px solid var(--fw-accent);
+			outline-offset: 2px;
+		}
+	}
+
+	.fw-status {
+		margin: 0 0 1.25rem;
+		font-size: 0.8rem;
+		color: var(--fw-text-subtle);
+	}
+
+	// --- Grid ---
+	.fw-grid {
+		display: grid;
+		grid-template-columns: repeat(var(--fw-columns, 3), minmax(0, 1fr));
+		gap: var(--fw-gap);
 		margin: 0;
 		padding: 0;
+		list-style: none;
+	}
+
+	.fw-grid__item {
+		margin: 0;
+	}
+
+	// --- Card ---
+	.fw-card {
+		position: relative; // anchor for the stretched link
+		display: flex;
+		flex-direction: column;
+		height: 100%;
+		background: var(--fw-surface);
+		border: 1px solid var(--fw-border);
+		border-radius: var(--fw-radius);
+		overflow: hidden;
+		transition: transform var(--fw-transition), border-color var(--fw-transition), box-shadow var(--fw-transition);
+
+		&:hover {
+			transform: translateY(-3px);
+			border-color: var(--fw-border-strong);
+			box-shadow: 0 6px 20px rgba(0, 0, 0, 0.06);
+		}
+
+		// Focus ring on the whole card when its link is keyboard-focused.
+		&:has(.fw-card__link:focus-visible) {
+			outline: 3px solid var(--fw-accent);
+			outline-offset: 3px;
+		}
+	}
+
+	.fw-card__media {
+		margin: 0;
+		aspect-ratio: var(--fw-cover-ratio);
+		background: var(--fw-surface-muted);
+		overflow: hidden;
+	}
+
+	.fw-card__image {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		display: block;
+	}
+
+	.fw-card__placeholder {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 100%;
+		height: 100%;
+	}
+
+	.fw-card__initials {
+		font-size: 1.75rem;
+		font-weight: 600;
+		letter-spacing: 0.05em;
+		color: rgba(255, 255, 255, 0.92);
+	}
+
+	.fw-card__body {
+		display: flex;
+		flex-direction: column;
+		gap: 0.5rem;
+		padding: 1rem 1.25rem 1.25rem;
+	}
+
+	.fw-card__tag {
+		align-self: flex-start;
+		font-size: 0.75rem;
+		font-weight: 500;
+		letter-spacing: 0.02em;
+		padding: 0.2rem 0.6rem;
+		border-radius: 999px;
+		background: var(--fw-accent-soft);
+		color: var(--fw-accent-strong);
+	}
+
+	.fw-card__title {
+		margin: 0;
+		font-size: 1.05rem;
+		line-height: 1.35;
+		font-weight: 600;
+		color: var(--fw-text);
+	}
+
+	.fw-card__link {
+		color: inherit;
+		text-decoration: none;
+		outline: none; // ring is drawn on the card via :has()
+
+		&::after {
+			content: "";
+			position: absolute;
+			inset: 0;
+		}
+
+		&:hover {
+			color: var(--fw-accent-strong);
+		}
+	}
+
+	.fw-card__client {
+		margin: 0;
+		font-size: 0.85rem;
+		color: var(--fw-text-muted);
+	}
+
+	.fw-card__excerpt {
+		margin: 0;
+		font-size: 0.9rem;
+		line-height: 1.6;
+		color: var(--fw-text-subtle);
+		display: -webkit-box;
+		-webkit-line-clamp: 3;
+		line-clamp: 3;
+		-webkit-box-orient: vertical;
+		overflow: hidden;
+	}
+
+	// --- Empty state ---
+	.fw-empty {
+		margin: 0;
+		padding: 2rem;
+		text-align: center;
+		color: var(--fw-text-subtle);
+		background: var(--fw-surface-muted);
+		border-radius: var(--fw-radius);
+	}
+
+	// --- Responsive: react to the block's own width ---
+	@container (width < 640px) {
+
+		.fw-grid {
+			grid-template-columns: repeat(2, minmax(0, 1fr));
+		}
+	}
+
+	@container (width < 400px) {
+
+		.fw-grid {
+			grid-template-columns: 1fr;
+		}
+	}
+
+	// --- Respect reduced-motion ---
+	@media (prefers-reduced-motion: reduce) {
+
+		.fw-card,
+		.fw-filter__btn {
+			transition: none;
+		}
+
+		.fw-card:hover {
+			transform: none;
+		}
 	}
 }

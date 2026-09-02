@@ -130,7 +130,7 @@ function featured_work_seed_demo_page() {
 			'post_status'  => 'publish',
 			'post_title'   => 'Our Work',
 			'post_name'    => 'our-work',
-			'post_content' => '<!-- wp:featured/work {"columns":3,"postsToShow":6} /-->',
+			'post_content' => '<!-- wp:featured/work {"columns":3,"postsToShow":6,"align":"wide","style":{"spacing":{"margin":{"top":"3rem"}}}} /-->',
 		)
 	);
 }
