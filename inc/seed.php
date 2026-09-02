@@ -1,6 +1,7 @@
 <?php
 /**
- * Seeds demo case studies + project types on plugin activation.
+ * Seeds demo content (case studies, project types, and a showcase page)
+ * on plugin activation.
  *
  * @package FeaturedWork
  */
@@ -10,13 +11,23 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Insert demo content once, on activation.
+ * Activation entry point: seed the case studies and the demo page.
  *
- * Guarded by the `featured_work_seeded` option so re-activating the plugin never
- * creates duplicates. The CPT and taxonomy are registered by the activation routine
- * before this runs (see featured_work_activate()).
+ * Each part guards itself independently so the showcase page can still be
+ * created on an install where the case studies were already seeded.
  */
 function featured_work_seed_demo_content() {
+	featured_work_seed_case_studies();
+	featured_work_seed_demo_page();
+}
+
+/**
+ * Insert the demo project types and case studies once.
+ *
+ * Guarded by the `featured_work_seeded` option so re-activation never
+ * creates duplicates.
+ */
+function featured_work_seed_case_studies() {
 	if ( get_option( 'featured_work_seeded' ) ) {
 		return;
 	}
@@ -102,4 +113,24 @@ function featured_work_seed_demo_content() {
 	}
 
 	update_option( 'featured_work_seeded', 1 );
+}
+
+/**
+ * Create a published "Our Work" page containing the block, so reviewers have a
+ * single front-end URL to open. Guarded on the page slug so it only runs once.
+ */
+function featured_work_seed_demo_page() {
+	if ( get_page_by_path( 'our-work', OBJECT, 'page' ) ) {
+		return;
+	}
+
+	wp_insert_post(
+		array(
+			'post_type'    => 'page',
+			'post_status'  => 'publish',
+			'post_title'   => 'Our Work',
+			'post_name'    => 'our-work',
+			'post_content' => '<!-- wp:featured/work {"columns":3,"postsToShow":6} /-->',
+		)
+	);
 }
