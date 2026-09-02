@@ -1,0 +1,15 @@
+/**
+ * Front-end + shared styles for the Featured Work block.
+ *
+ * Placeholder for Phase 2 so the build resolves the import in index.js.
+ * The full design (CSS grid, tokens, container queries, focus states,
+ * reduced-motion) is built out in Phase 4. Compiles to build/style-index.css,
+ * referenced by block.json's "style" key.
+ */
+.wp-block-featured-work {
+	ul {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+	}
+}
