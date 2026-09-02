@@ -16,12 +16,13 @@ function initFeaturedWork( root ) {
 	}
 
 	const buttons = Array.from( toolbar.querySelectorAll( '.fw-filter__btn' ) );
-	const cards = Array.from( grid.querySelectorAll( '.fw-grid__item' ) );
-	const status = root.querySelector( '.fw-status' );
 
 	if ( ! buttons.length ) {
 		return;
 	}
+
+	const cards = Array.from( grid.querySelectorAll( '.fw-grid__item' ) );
+	const status = root.querySelector( '.fw-status' );
 
 	// Roving tabindex: only the active button stays in the tab order.
 	const setTabStops = ( activeIndex ) => {

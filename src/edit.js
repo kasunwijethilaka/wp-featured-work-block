@@ -57,57 +57,95 @@ export default function Edit( { attributes, setAttributes } ) {
 					<RangeControl
 						label={ __( 'Columns', 'featured-work' ) }
 						value={ columns }
-						onChange={ ( value ) => setAttributes( { columns: value } ) }
+						onChange={ ( value ) =>
+							setAttributes( { columns: value } )
+						}
 						min={ 2 }
 						max={ 4 }
 					/>
 					<RangeControl
-						label={ __( 'Number of case studies', 'featured-work' ) }
+						label={ __(
+							'Number of case studies',
+							'featured-work'
+						) }
 						value={ postsToShow }
-						onChange={ ( value ) => setAttributes( { postsToShow: value } ) }
+						onChange={ ( value ) =>
+							setAttributes( { postsToShow: value } )
+						}
 						min={ 1 }
 						max={ 12 }
 					/>
 				</PanelBody>
 
-				<PanelBody title={ __( 'Query', 'featured-work' ) } initialOpen={ false }>
+				<PanelBody
+					title={ __( 'Query', 'featured-work' ) }
+					initialOpen={ false }
+				>
 					<SelectControl
 						label={ __( 'Project type', 'featured-work' ) }
 						value={ projectType }
 						options={ termOptions }
-						onChange={ ( value ) => setAttributes( { projectType: value } ) }
+						onChange={ ( value ) =>
+							setAttributes( { projectType: value } )
+						}
 					/>
 					<SelectControl
 						label={ __( 'Order by', 'featured-work' ) }
 						value={ orderBy }
 						options={ [
-							{ label: __( 'Date', 'featured-work' ), value: 'date' },
-							{ label: __( 'Title', 'featured-work' ), value: 'title' },
-							{ label: __( 'Menu order', 'featured-work' ), value: 'menu_order' },
+							{
+								label: __( 'Date', 'featured-work' ),
+								value: 'date',
+							},
+							{
+								label: __( 'Title', 'featured-work' ),
+								value: 'title',
+							},
+							{
+								label: __( 'Menu order', 'featured-work' ),
+								value: 'menu_order',
+							},
 						] }
-						onChange={ ( value ) => setAttributes( { orderBy: value } ) }
+						onChange={ ( value ) =>
+							setAttributes( { orderBy: value } )
+						}
 					/>
 					<SelectControl
 						label={ __( 'Order', 'featured-work' ) }
 						value={ order }
 						options={ [
-							{ label: __( 'Descending', 'featured-work' ), value: 'desc' },
-							{ label: __( 'Ascending', 'featured-work' ), value: 'asc' },
+							{
+								label: __( 'Descending', 'featured-work' ),
+								value: 'desc',
+							},
+							{
+								label: __( 'Ascending', 'featured-work' ),
+								value: 'asc',
+							},
 						] }
-						onChange={ ( value ) => setAttributes( { order: value } ) }
+						onChange={ ( value ) =>
+							setAttributes( { order: value } )
+						}
 					/>
 				</PanelBody>
 
-				<PanelBody title={ __( 'Display', 'featured-work' ) } initialOpen={ false }>
+				<PanelBody
+					title={ __( 'Display', 'featured-work' ) }
+					initialOpen={ false }
+				>
 					<ToggleControl
 						label={ __( 'Show excerpt', 'featured-work' ) }
 						checked={ showExcerpt }
-						onChange={ ( value ) => setAttributes( { showExcerpt: value } ) }
+						onChange={ ( value ) =>
+							setAttributes( { showExcerpt: value } )
+						}
 					/>
 					<ToggleControl
 						label={ __( 'Show filter bar', 'featured-work' ) }
 						checked={ showFilter }
-						onChange={ ( value ) => setAttributes( { showFilter: value } ) }
+						onChange={ ( value ) =>
+							setAttributes( { showFilter: value } )
+						}
 					/>
 				</PanelBody>
 			</InspectorControls>
